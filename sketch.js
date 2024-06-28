@@ -1,38 +1,32 @@
-let palavra;
+let cor;
+let circuloX; // horizontal
+let circuloY // vertical
+
 
 function setup() {
   createCanvas(400, 400);
-
-  palavra = palavraAleatoria("Cat", "Dog", "Horse", "Mouse");
-}
-
-function palavraAleatoria() {
-  let palavras = ["Cat", "Dog", "Horse", "Mouse"];
-  return random(palavras)
-}
-
-function inicializaCores() {
-  background("orange");
-  fill("red");
-  textSize(64);
-  textAlign(CENTER, CENTER);
+  background(color(100, 0 , 0));
+  cor = color(random(0, 255), random(0, 255), random(0, 255));
   
-}
-function palavraParcial(minimo, maximo) {
-  let quantidade = map(mouseX, minimo, maximo, 1, palavra.length);
-  let parcial = palavra.substring(0, quantidade);
-  return parcial;
-  
+  circuloX = [0, 0, 0];
+  circuloY = [random(height), random(height), random(height)];
 }
 
 function draw() {
-  inicializaCores();
+  fill(cor)
+  for(let contador in circuloX) {
+    circle(circuloX[contador], circuloY[contador], 50);
+    circuloX[contador]+= random(0,3);
+    circuloY[contador]+= random(-3,3);
+    
+    if(circuloX[contador] >= width){
+      circuloX[contador] = 0;
+    circuloY[contador] = random(height);
+}
 
-  let texto = palavraParcial(0, width);
-  text(texto, 200, 200);
+}
   
-  let quantidade = map(mouseX, 0, width, 1, palavra.length);
-  //console.log(quantidade);
-  let parcial = palavra.substring(0, quantidade);
-  text(parcial, 200, 200);
+  if(mouseIsPressed){cor = color(random(0, 255), random(0, 255), random(0, 255), random(0, 100));}
+  
+  
 }
